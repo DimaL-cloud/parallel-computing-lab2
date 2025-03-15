@@ -10,7 +10,7 @@ import java.util.Random;
 public class Main {
 
     private static final int ARRAY_SIZE = 10_000_000;
-    private static final int RANDOM_BOUND = 10000;
+    private static final int RANDOM_BOUND = 10_000;
 
     private static void printResults(ModuloSumCalculator moduloSumCalculator, int[] array) {
         long startTime = System.nanoTime();

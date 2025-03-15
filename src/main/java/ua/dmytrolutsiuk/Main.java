@@ -11,6 +11,7 @@ public class Main {
 
     private static final int ARRAY_SIZE = 10_000_000;
     private static final int RANDOM_BOUND = 10_000;
+    private static final int NANO_TO_MILLIS_CONVERSION = 1_000_000;
 
     private static void printResults(ModuloSumCalculator moduloSumCalculator, int[] array) {
         long startTime = System.nanoTime();
@@ -19,7 +20,7 @@ public class Main {
         log.info(
                 "{} execution time: {}ms, result: {}",
                 moduloSumCalculator.getClass().getSimpleName(),
-                (endTime - startTime) / 1_000_000,
+                (endTime - startTime) / NANO_TO_MILLIS_CONVERSION,
                 sum
         );
     }

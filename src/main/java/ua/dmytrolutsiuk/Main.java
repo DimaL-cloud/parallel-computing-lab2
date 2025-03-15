@@ -24,7 +24,7 @@ public class Main {
         );
     }
 
-    public static int[] generateRandomArray(int size) {
+    private static int[] generateRandomArray(int size) {
         var random = new Random();
         int[] array = new int[size];
         for (int i = 0; i < size; i++) {

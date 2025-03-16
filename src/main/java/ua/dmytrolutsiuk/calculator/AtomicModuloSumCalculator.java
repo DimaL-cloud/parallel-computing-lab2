@@ -13,7 +13,7 @@ public class AtomicModuloSumCalculator implements ModuloSumCalculator {
     @Override
     @SneakyThrows
     public int calculateModuloSum(int[] array) {
-        Thread[] threads = new Thread[THREADS_AMOUNT];
+        var threads = new Thread[THREADS_AMOUNT];
         int chunkSize = array.length / THREADS_AMOUNT;
         for (int i = 0; i < THREADS_AMOUNT; i++) {
             int start = i * chunkSize;

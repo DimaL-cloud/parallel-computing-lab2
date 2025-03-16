@@ -1,6 +1,7 @@
 package ua.dmytrolutsiuk;
 
 import lombok.extern.slf4j.Slf4j;
+import ua.dmytrolutsiuk.calculator.AtomicModuloSumCalculator;
 import ua.dmytrolutsiuk.calculator.BlockingModuloSumCalculator;
 import ua.dmytrolutsiuk.calculator.ModuloSumCalculator;
 import ua.dmytrolutsiuk.calculator.SingleThreadedModuloSumCalculator;
@@ -36,8 +37,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        log.info("Array size: {}", ARRAY_SIZE);
         int[] array = generateRandomArray(ARRAY_SIZE);
         printResults(new SingleThreadedModuloSumCalculator(), array);
         printResults(new BlockingModuloSumCalculator(), array);
+        printResults(new AtomicModuloSumCalculator(), array);
     }
 }

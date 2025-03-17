@@ -6,10 +6,10 @@ public class BlockingModuloSumCalculator implements ModuloSumCalculator {
 
     private static final int THREADS_AMOUNT = Runtime.getRuntime().availableProcessors();
 
-    private int totalSum = 0;
+    private int result = 0;
 
-    private synchronized void addToTotal(int sum) {
-        totalSum += sum;
+    private synchronized void xor(int num) {
+        result ^= num;
     }
 
     @Override
@@ -21,19 +21,17 @@ public class BlockingModuloSumCalculator implements ModuloSumCalculator {
             int start = i * chunkSize;
             int end = (i == THREADS_AMOUNT - 1) ? array.length : (i + 1) * chunkSize;
             threads[i] = new Thread(() -> {
-                int sum = 0;
                 for (int j = start; j < end; j++) {
                     if (array[j] % DIVISOR == 0) {
-                        sum += array[j];
+                        xor(array[j]);
                     }
                 }
-                addToTotal(sum);
             });
             threads[i].start();
         }
         for (Thread thread : threads) {
             thread.join();
         }
-        return totalSum % MODULO;
+        return result;
     }
 }

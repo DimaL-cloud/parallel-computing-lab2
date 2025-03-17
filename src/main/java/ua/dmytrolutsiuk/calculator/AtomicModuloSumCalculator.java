@@ -19,22 +19,20 @@ public class AtomicModuloSumCalculator implements ModuloSumCalculator {
             int start = i * chunkSize;
             int end = (i == THREADS_AMOUNT - 1) ? array.length : (i + 1) * chunkSize;
             threads[i] = new Thread(() -> {
-                int sum = 0;
                 for (int j = start; j < end; j++) {
                     if (array[j] % DIVISOR == 0) {
-                        sum += array[j];
+                        int oldResult;
+                        do {
+                            oldResult = totalSum.get();
+                        } while (!totalSum.compareAndSet(oldResult, oldResult ^ array[j]));
                     }
                 }
-                int oldSum;
-                do {
-                    oldSum = totalSum.get();
-                } while (!totalSum.compareAndSet(oldSum, oldSum + sum));
             });
             threads[i].start();
         }
         for (Thread thread : threads) {
             thread.join();
         }
-        return totalSum.get() % MODULO;
+        return totalSum.get();
     }
 }
